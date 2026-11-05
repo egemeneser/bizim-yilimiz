@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{color-scheme:dark}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Bizim Yılımız</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=DM+Sans:opsz,wght@9..40,400;9..40,600&display=swap">
+<style>
+/* Layout: phone-shaped story card, tap-through slides, Wrapped-style progress bars. Single dark look by choice. */
+:root {
+  color-scheme: dark;
+  --ink: #fff6ee;
+  --ink-soft: rgba(255,246,238,.72);
+  --night: #170a1f;
+  --plum: #3b0f45;
+  --rose: #ff4f8b;
+  --peach: #ffb38a;
+  --sun: #ffe08a;
+  --sky: #6fd3ff;
+  --ok: #7cf2b0;
+  --no: #ff8a8a;
+  --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, -apple-system, sans-serif;
+}
+html, body { height: 100%; }
+body {
+  background: var(--night); color: var(--ink); font-family: var(--body);
+  display: grid; place-items: center;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 16px; box-sizing: border-box; overflow: hidden;
+}
+.story {
+  position: relative; width: min(100%, 420px); height: min(100%, 820px);
+  border-radius: 28px; overflow: hidden; background: var(--plum);
+  transition: background .6s ease; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.bars { position: absolute; inset: 14px 14px auto; display: flex; gap: 5px; z-index: 5; }
+.bars span { flex: 1; height: 3px; border-radius: 3px; background: rgba(255,246,238,.28); overflow: hidden; }
+.bars span i { display: block; height: 100%; width: 0; background: var(--ink); transition: width .35s ease; }
+.bars span.done i { width: 100%; }
+.slide {
+  position: absolute; inset: 0; padding: 64px 26px 30px; box-sizing: border-box;
+  display: flex; flex-direction: column; gap: 18px;
+  animation: in .5s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes in { from { transform: translateY(18px); opacity: .2; } to { transform: none; opacity: 1; } }
+.eyebrow { font-family: var(--display); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+h1, h2 { font-family: var(--display); margin: 0; text-wrap: balance; line-height: 1.02; }
+h1 { font-size: clamp(42px, 13vw, 58px); font-weight: 900; }
+h2 { font-size: clamp(26px, 7.5vw, 34px); font-weight: 700; }
+p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink-soft); max-width: 34ch; }
+.grow { flex: 1; }
+.hint { font-size: 13px; color: var(--ink-soft); text-align: center; animation: pulse 2s infinite; }
+@keyframes pulse { 50% { opacity: .4; } }
+.opts { display: grid; gap: 10px; }
+.opts.two { grid-template-columns: 1fr 1fr; }
+.opt {
+  font: 600 18px var(--body); color: var(--night); background: var(--ink);
+  border: 0; border-radius: 18px; padding: 18px 14px; cursor: pointer;
+  transition: transform .15s ease;
+}
+.opts.two .opt { font-family: var(--display); font-size: 20px; padding: 34px 10px; }
+.opt:hover { transform: scale(1.03); }
+.opt:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+.opt.emoji { font-size: 34px; }
+.verdict { font-family: var(--display); font-weight: 700; font-size: 14px; display: inline-flex; gap: 8px; align-items: center;
+  align-self: flex-start; padding: 8px 14px; border-radius: 99px; background: rgba(0,0,0,.25); }
+.verdict.ok { color: var(--ok); } .verdict.no { color: var(--no); }
+.big { font-family: var(--display); font-weight: 900; font-size: clamp(64px, 22vw, 104px); line-height: .9; font-variant-numeric: tabular-nums; }
+.vs { display: grid; gap: 14px; }
+.vs .row { display: grid; gap: 6px; }
+.vs .lab { display: flex; justify-content: space-between; font-weight: 600; font-variant-numeric: tabular-nums; }
+.vs .track { height: 54px; border-radius: 14px; background: rgba(0,0,0,.22); overflow: hidden; }
+.vs .fill { height: 100%; width: 0; border-radius: 14px; transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+.letter { background: var(--ink); color: var(--night); border-radius: 20px; padding: 22px; font-size: 16px; line-height: 1.6; transform: rotate(-1.5deg); }
+.letter p { color: var(--night); max-width: none; }
+.letter .sign { margin-top: 12px; font-family: var(--display); font-size: 14px; }
+.score { font-family: var(--display); font-size: 15px; }
+.btn { font: 700 14px var(--display); color: var(--ink); background: rgba(0,0,0,.25); border: 1px solid rgba(255,246,238,.35);
+  border-radius: 99px; padding: 12px 18px; cursor: pointer; align-self: center; }
+.blob { position: absolute; border-radius: 50%; filter: blur(50px); opacity: .55; pointer-events: none; }
+.note { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 10px; color: var(--ink-soft); opacity: .6; z-index: 5; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+.quote { background: rgba(0,0,0,.24); border-radius: 18px; padding: 18px 20px; font-size: 19px; line-height: 1.45; }
+.quote .who { font-family: var(--display); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+.quote .when { font-size: 13px; color: var(--ink-soft); margin-top: 10px; }
+.hist { display: flex; align-items: flex-end; gap: 3px; height: 90px; }
+.hist i { flex: 1; background: rgba(255,246,238,.3); border-radius: 3px 3px 0 0; height: 0; transition: height 1s cubic-bezier(.2,.8,.2,1); }
+.hist i.on { background: var(--sun); }
+.hist-axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+</style>
+
+</head>
+<body>
+<div class="story" id="story">
+  <div class="bars" id="bars"></div>
+  <div id="stage"></div>
+</div>
+
+<script>
+const VERI = {"DATA": {"ben": "Egemen", "sen": "Sen", "senAd": "Başak", "yil": "26 Ekim 2025 – 6 Kasım 2026", "toplam": 67304, "gunlukOrt": 191, "gun": 376, "sorular": [{"tip": "kim", "soru": "Sence bu yıl kim daha çok mesaj attı?", "ben": 35026, "sen": 32278, "birim": "mesaj", "yorum": "İkimiz toplam 67.304 mesaj atmışız ve ben koymuşummmmm."}, {"tip": "kim", "soru": "Kim daha çok “günaydın” yazdı?", "ben": 179, "sen": 183, "birim": "günaydın", "yorum": "Fark sadece 4, çok da rollenme."}, {"tip": "secenek", "soru": "Günün hangi saatinde en çok mesajlaşıyoruz?", "secenekler": ["00:00", "13:00", "16:00", "22:00"], "dogru": "16:00", "buyuk": "16:54", "hist": true, "yorum": "Ne alaka anlamadım, bunu bir konuşalım."}, {"tip": "kim", "soru": "Kim daha çok “özledim” dedi?", "ben": 191, "sen": 117, "birim": "özledim", "yorum": "HAHAHA, ben kazandım!"}, {"tip": "secenek", "emoji": true, "soru": "En çok kullandığımız emoji hangisi?", "secenekler": ["🥺", "😭", "❤️", "😡"], "dogru": "😭", "buyuk": "1.963", "yorum": "kez 😭 göndermişiz. Bunların 1.924'ü benden. Artık ne kadar üzdüysen beni?"}, {"tip": "secenek", "soru": "En çok kullandığımız kelime hangisi?", "secenekler": ["canım", "bebeğim", "aşkım", "naptın"], "dogru": "aşkım", "buyuk": "3.890", "yorum": "kez “aşkım” yazmışız. İkinci sırada 2.063 kez “canım” var."}, {"tip": "kim", "soru": "Kim daha hızlı cevap veriyor?", "ben": 26, "sen": 24, "az": true, "birim": "sn", "kisa": true, "yorum": "Genelde sen 24, ben 26 saniyede cevap veriyoruz. 2 saniye farkla sen kazandın. Hadi buna sevin biraz."}, {"tip": "secenek", "soru": "En çok mesajlaştığımız gün hangisiydi?", "secenekler": ["31 Aralık 2025", "14 Şubat 2026", "1 Mayıs 2026", "26 Ekim 2025"], "dogru": "1 Mayıs 2026", "buyuk": "773", "yorum": "mesaj, tek bir günde. 1 Mayıs 2026, Cuma."}, {"tip": "alinti", "soru": "İlk “seni seviyorum”u kim yazdı?", "dogru": "ben", "alinti": "Seni çok seviyorum", "tarih": "13 Kasım 2025 · 18:01", "yorum": "O günden beri ben 564 kez söyledim, sen ise 439 kez. Kimin daha çok sevdiği belli!"}, {"tip": "secenek", "soru": "En uzun görüntülü konuşmamız ne kadar sürdü?", "secenekler": ["2 saat", "4 saat", "6 saat", "8 saat"], "dogru": "8 saat", "buyuk": "8", "yorum": "saat. 12 Nisan 2026'da gece 03.01'de aradım ve sabaha kadar kapatmadık. Bu yıl en az 174 saat görüntülü konuşmuşuz."}], "mektup": ["Bir yıl, 67.304 mesaj, 1.003 “seni seviyorum” ve bir sürü 😭.", "Daha nicelerine, sevgilim."]}, "SAAT": [3432, 2364, 1301, 1039, 121, 96, 207, 738, 427, 1109, 2564, 3009, 3735, 4055, 4198, 4620, 5052, 4252, 4033, 3854, 4198, 4578, 4387, 3935]};
+function basla(DATA, SAAT) {
+
+
+
+const BG = ["#3b0f45", "#b0215e", "#1d3f8f", "#c2541f", "#6a1b8a", "#0f5c5c", "#8a1240", "#2a1450", "#a3326a"];
+const stage = document.getElementById("stage"), story = document.getElementById("story"), barsEl = document.getElementById("bars");
+const fmt = n => n.toLocaleString("tr-TR");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const slides = [{ t: "intro" }];
+DATA.sorular.forEach((q, i) => { slides.push({ t: "soru", i }); slides.push({ t: "cevap", i }); });
+slides.push({ t: "gun" }, { t: "mektup" });
+
+let idx = 0, answers = {};
+barsEl.innerHTML = slides.map(() => "<span><i></i></span>").join("");
+
+function dogruCevap(q) {
+  if (q.tip === "secenek") return q.dogru;
+  if (q.tip === "alinti") return q.dogru === "ben" ? DATA.ben : DATA.sen;
+  const benKazandi = q.az ? q.ben < q.sen : q.ben > q.sen;
+  return benKazandi ? DATA.ben : DATA.sen;
+}
+function countUp(el, target, suffix = "") {
+  if (reduce) { el.textContent = fmt(target) + suffix; return; }
+  const t0 = performance.now(), d = 1300;
+  (function step(t) {
+    const p = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(Math.round(target * e)) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  })(t0);
+}
+function blobs(a, b) {
+  return `<div class="blob" style="width:260px;height:260px;background:${a};top:-60px;right:-80px"></div>
+          <div class="blob" style="width:220px;height:220px;background:${b};bottom:-40px;left:-70px"></div>`;
+}
+const devam = `<div class="grow"></div><div class="hint">Devam etmek için dokun</div>`;
+
+function render() {
+  const s = slides[idx];
+  story.style.background = BG[idx % BG.length];
+  [...barsEl.children].forEach((b, k) => b.classList.toggle("done", k <= idx));
+  let h = "";
+  if (s.t === "intro") {
+    h = `${blobs("var(--rose)", "var(--sun)")}
+      <div class="eyebrow">${DATA.yil}</div>
+      <h1>Bizim<br>Yılımız</h1>
+      <p>Bir yıl, ${fmt(DATA.toplam)} mesaj, günde ortalama ${DATA.gunlukOrt} tane.</p>
+      <div class="grow"></div>
+      <div class="hint">Başlamak için dokun</div>`;
+  } else if (s.t === "soru") {
+    const q = DATA.sorular[s.i];
+    const opts = q.tip === "secenek" ? q.secenekler : [DATA.sen, DATA.ben];
+    h = `${blobs("var(--peach)", "var(--sky)")}
+      <div class="eyebrow">Soru ${s.i + 1} / ${DATA.sorular.length}</div>
+      <h2>${q.soru}</h2>
+      <div class="grow"></div>
+      <div class="opts ${opts.length === 2 ? "two" : ""}">
+        ${opts.map(o => `<button class="opt ${q.emoji ? "emoji" : ""}" data-v="${o}">${o}</button>`).join("")}
+      </div>`;
+  } else if (s.t === "cevap") {
+    const q = DATA.sorular[s.i];
+    const correct = dogruCevap(q);
+    const ok = answers[s.i] === correct;
+    const verdict = `<div class="verdict ${ok ? "ok" : "no"}">${ok ? "✓ Bildin!" : "✗ Bilemedin"}</div>`;
+    const baslik = correct === DATA.sen ? "Sensin!" : DATA.ben + "!";
+    if (q.tip === "kim") {
+      const max = Math.max(q.ben, q.sen);
+      const row = (ad, n, renk) => `<div class="row"><div class="lab"><span>${ad}</span><span><span data-n="${n}">0</span> ${q.kisa ? q.birim : ""}</span></div>
+            <div class="track"><div class="fill" style="background:${renk}" data-w="${n / max * 100}"></div></div></div>`;
+      h = `${blobs("var(--rose)", "var(--peach)")}${verdict}
+        <h2>${baslik}</h2>
+        <div class="vs">${row(DATA.sen, q.sen, "var(--sun)")}${row(DATA.ben, q.ben, "var(--sky)")}</div>
+        <p>${q.yorum}</p>${devam}`;
+    } else if (q.tip === "alinti") {
+      h = `${blobs("var(--sun)", "var(--rose)")}${verdict}
+        <h2>${baslik}</h2>
+        <div class="quote"><div class="who">${correct}</div>“${q.alinti}”<div class="when">${q.tarih}</div></div>
+        <p>${q.yorum}</p>${devam}`;
+    } else {
+      const big = q.buyuk.replace(/\./g, "");
+      const sayi = /^\d+$/.test(big);
+      const hist = q.hist ? `<div class="hist">${SAAT.map((v, k) => `<i class="${k === 16 ? "on" : ""}" data-h="${v / 5052 * 100}"></i>`).join("")}</div>
+        <div class="hist-axis"><span>00</span><span>06</span><span>12</span><span>18</span><span>23</span></div>` : "";
+      h = `${blobs("var(--sun)", "var(--rose)")}${verdict}
+        <div class="eyebrow">Doğru cevap · ${q.dogru}</div>
+        <div class="big" ${sayi ? `data-n="${big}"` : ""}>${sayi ? "0" : q.buyuk}</div>
+        ${hist}
+        <p>${q.yorum}</p>${devam}`;
+    }
+  } else if (s.t === "gun") {
+    h = `${blobs("var(--sky)", "var(--rose)")}
+      <div class="eyebrow">Toplamda</div>
+      <div class="big" data-n="${DATA.gun}">0</div>
+      <h2>gün</h2>
+      <p>${fmt(DATA.gun * 24)} saat, ${fmt(DATA.gun * 1440)} dakika. Hepsi seninle.</p>
+      <div class="grow"></div><div class="hint">Son bir şey var…</div>`;
+  } else {
+    const score = DATA.sorular.filter((q, i) => answers[i] === dogruCevap(q)).length;
+    h = `${blobs("var(--rose)", "var(--sun)")}
+      <div class="eyebrow">Mutlu yıldönümü</div>
+      <div class="score">Skorun: ${score} / ${DATA.sorular.length} ${score >= 7 ? "· beni çok iyi tanıyorsun" : "· seneye daha iyi olacak"}</div>
+      <div class="letter">${DATA.mektup.map(l => `<p>${l}</p>`).join("")}<div class="sign">— ${DATA.ben}</div></div>
+      <div class="grow"></div>
+      <button class="btn" id="again">Baştan izle</button>`;
+  }
+  stage.innerHTML = `<div class="slide">${h}</div>`;
+
+  stage.querySelectorAll("[data-n]").forEach(el => countUp(el, +el.dataset.n));
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    stage.querySelectorAll("[data-w]").forEach(el => el.style.width = el.dataset.w + "%");
+    stage.querySelectorAll("[data-h]").forEach(el => el.style.height = el.dataset.h + "%");
+  }));
+  stage.querySelectorAll(".opt").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation(); answers[s.i] = b.dataset.v; next();
+  }));
+  const again = document.getElementById("again");
+  if (again) again.addEventListener("click", e => { e.stopPropagation(); answers = {}; idx = 0; render(); });
+}
+function next() { if (idx < slides.length - 1) { idx++; render(); } }
+function prev() { if (idx > 0) { idx--; if (slides[idx].t === "cevap") idx--; render(); } }
+
+story.addEventListener("click", e => {
+  const s = slides[idx];
+  const r = story.getBoundingClientRect();
+  if (e.clientX - r.left < r.width * 0.28) { prev(); return; }
+  if (s.t !== "soru" && s.t !== "mektup") next();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight" && !["soru", "mektup"].includes(slides[idx].t)) next();
+  if (e.key === "ArrowLeft") prev();
+});
+render();
+
+}
+basla(VERI.DATA, VERI.SAAT);
+</script>
+
+</body>
+</html>
